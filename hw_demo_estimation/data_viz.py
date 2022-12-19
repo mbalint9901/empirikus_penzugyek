@@ -68,6 +68,13 @@ def data_clustering_coefficient_by_gender(nodes, G):
 
 
 def plot_figure_three(nodes, G):
+    """
+    Creating a plot with reference to Figure 3 of the example article
+    The subplots in this figure include the data of the previous functions
+        a) Degree centrality by gender
+        b) Neighbour connectivity by gender
+        c) Clustering coefficients by gender
+    """
     fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(20, 6))
     sns.lineplot(data=data_node_degree_by_gender(nodes, G), x='AGE', y='degree', hue='Gender',
                  ax=ax1)
@@ -81,9 +88,9 @@ def plot_figure_three(nodes, G):
     plt.tight_layout()
 
 
-def plot_age_relations_heatmap(edges_w_features, gender_pair, normalize='logging'):
+def data_age_relations_heatmap(edges_w_features, gender_pair, normalize='logging'):
     """
-    Plot a heatmap that represents the distribution of edges
+    Return the data needed for the plot a heatmap that represents the distribution of edges
     Gender pair is an argument of the function:
         0: no filter to gender
         1: F-F connections
@@ -113,20 +120,28 @@ def plot_age_relations_heatmap(edges_w_features, gender_pair, normalize='logging
 
 
 def plot_figure_five(edges_w_features, normalize='logging'):
+    """
+        Creating a plot with reference to Figure 5 of the example article
+        The subplots in this figure include the data of the previous functions
+            a) Number of connections per pair
+            b) Number of Female-Female connections per pair
+            c) Number of Male-Male connections per pair
+            d) Number of Male-Female connections per pair
+        """
     fig, [[ax1, ax2], [ax3, ax4]] = plt.subplots(2, 2, figsize=(14, 10))
-    sns.heatmap(plot_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=0, normalize=normalize),
+    sns.heatmap(data_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=0, normalize=normalize),
                 ax=ax1)
     ax1.invert_yaxis()
     ax1.set(xlabel="Age", ylabel="Age", title="(a) #connections per pair")
-    sns.heatmap(plot_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=1, normalize=normalize),
+    sns.heatmap(data_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=1, normalize=normalize),
                 ax=ax2)
     ax2.invert_yaxis()
     ax2.set(xlabel="Age (Female)", ylabel="Age (Female)", title="(b) #connections per F-F pair")
-    sns.heatmap(plot_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=2, normalize=normalize),
+    sns.heatmap(data_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=2, normalize=normalize),
                 ax=ax3)
     ax3.invert_yaxis()
     ax3.set(xlabel="Age (Male)", ylabel="Age (Male)", title="(c) #connections per M-M pair")
-    sns.heatmap(plot_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=3, normalize=normalize),
+    sns.heatmap(data_age_relations_heatmap(edges_w_features=edges_w_features, gender_pair=3, normalize=normalize),
                 ax=ax4)
     ax4.invert_yaxis()
     ax4.set(xlabel="Age (Male)", ylabel="Age (Female)", title="(d) #connections per M-F pair")
@@ -136,3 +151,6 @@ def plot_figure_five(edges_w_features, normalize='logging'):
     if normalize == "logging":
         plt.title('All values are log-scaled')
     plt.tight_layout()
+
+
+
